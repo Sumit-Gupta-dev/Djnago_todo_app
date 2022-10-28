@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+
+{% block start %}
+	<header>
+		<h1>Todo App</h1>
+		<form id="new-task-form" action="" method="POST">
+            {% csrf_token %}
+			<input 
+				type="text" 
+				name="new-task-input" 
+				id="new-task-input" 
+				placeholder="What do you have planned?" />
+			<!-- <input 
+				type="submit"
+				id="new-task-submit" 
+				value="Add todo" /> -->
+                <button type="submit" id="new-task-submit">Add todo</button>
+		</form>
+	</header>
+	<main>
+		<section class="task-list">
+			<h2>Todos</h2>
+
+			<div id="tasks">
+                <br>
+                
+
+             
+
+
+
+
+				{% if tasks %}
+				{% for task in tasks %}
+                <div class="task">
+					<div class="content">
+						<input 
+							type="text" 
+							class="text" 
+							value="{{task.task_data}} - {{task.id}}"
+							readonly>
+					</div>
+					<div class="actions">
+						<a href="{% url 'edit_task' id=task.id %}"><button class="edit" type="submit">Edit</button></a>
+						<a href="{% url 'delete_todo' id=task.id %}"><button class="delete">Delete</button></a>
+					</div>
+				</div>
+
+				{% endfor %}
+				{% else %}
+				<h1>No task here</h1>
+				{% endif %}
+			</div>
+		</section>
+	</main>
+
+{% endblock %}
