@@ -3,6 +3,13 @@
 	
 
 {% block start %}
+
+
+	
+
+
+
+
 	<header>
 		<h1>Todo App</h1>
 		<form id="new-task-form" action="" method="POST">
@@ -31,16 +38,28 @@
 
 
 
-
+				
 				{% if tasks %}
-				{% for task in tasks %}
+				{% for task in page_obj %}
                 <div class="task">
+					
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"  disabled {% if task.is_completed == True %} checked {% endif %} />
+					
 					<div class="content">
+						{% if task.is_completed == True %}
+						<s><input 
+							type="text" 
+							class="text" 
+							value="{{task.task_data}} - {{task.id}}"
+							readonly></s>
+
+						{% else %}
 						<input 
 							type="text" 
 							class="text" 
 							value="{{task.task_data}} - {{task.id}}"
 							readonly>
+						{% endif %}
 					</div>
 					<div class="actions">
 						<a href="{% url 'edit_task' id=task.id %}"><button class="edit" type="submit">Edit</button></a>
@@ -52,8 +71,42 @@
 				{% else %}
 				<h1>No task here</h1>
 				{% endif %}
+
+
+				<div class="row  " >
+					<div class="col-lg-12 d-flex justify-content-center mt-5">
+						<nav aria-label="Page navigation example  ">
+							<ul class="pagination  ">
+	
+								{% if page_obj.has_previous %}
+								<li class="page-item "><a href="?page=1" class="page-link border text-danger">&laquo; first</a></li>
+								<li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link border text-danger">previous</a></li>
+								{% endif %}
+						
+								<!-- <span class="current"> -->
+									{% for i in nums %}
+									<li class="page-item "><a href="?page={{forloop.counter}}" class="page-link border bg-transparent text-danger">{{forloop.counter}}</a></li>
+									{% endfor %}
+								<!-- </span> -->
+						
+								{% if page_obj.has_next %}
+								<li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link border text-danger">next</a></li>
+									<li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link border text-danger">last &raquo;</a></li>
+								{% endif %}
+							</ul>
+						</nav>
+					</div>
+					
+				</div>
+			
+
+
+				
 			</div>
 		</section>
 	</main>
+
+
+
 
 {% endblock %}

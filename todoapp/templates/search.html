@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+
+{% block start %}
+
+
+	
+
+
+
+
+	
+	<main>
+		<section class="task-list">
+			<h2>Todos</h2>
+
+			<div id="tasks">
+                <br>
+                
+
+             
+
+
+
+				
+		
+				{% for search in searchs %}
+                <div class="task">
+					
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"  disabled {% if search.is_completed == True %} checked {% endif %} />
+					
+					<div class="content">
+						{% if search.is_completed == True %}
+						<s><input 
+							type="text" 
+							class="text" 
+							value="{{search.task_data}} - {{search.id}}"
+							readonly></s>
+
+						{% else %}
+						<input 
+							type="text" 
+							class="text" 
+							value="{{search.task_data}} - {{search.id}}"
+							readonly>
+						{% endif %}
+						
+					</div>
+					<div class="actions">
+						<a href="{% url 'edit_task' id=search.id %}"><button class="edit" type="submit">Edit</button></a>
+						<a href="{% url 'delete_todo' id=search.id %}"><button class="delete">Delete</button></a>
+					</div>
+				</div>
+
+				{% endfor %}
+				
+
+
+				
+
+
+				
+			</div>
+		</section>
+	</main>
+
+
+
+
+{% endblock %}

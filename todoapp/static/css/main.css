@@ -154,3 +154,12 @@ main {
 .task .actions .delete {
 	color: crimson;
 }
+
+.middle_task{
+	/* border: 2px solid white;  */
+	margin-top: 90px;
+	box-sizing: border-box;
+   
+}
+
+

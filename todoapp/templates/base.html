@@ -27,23 +27,19 @@ rel="stylesheet"
 <link>
 
 
+
+
+
+
 </head>
-<body>
+<body class="container">
     
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
     <!-- Container wrapper -->
-    <div class="container">
+    <div class="container ">
       <!-- Navbar brand -->
-      <a class="navbar-brand me-2" href="https://mdbgo.com/">
-        <img
-          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-          height="16"
-          alt="MDB Logo"
-          loading="lazy"
-          style="margin-top: -1px;"
-        />
-      </a>
+      
   
       <!-- Toggle button -->
       <button
@@ -63,15 +59,47 @@ rel="stylesheet"
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">Dashboard</a>
+            <a class="nav-link" href="{% url 'home' %}">TODO APP</a>
           </li>
         </ul>
-        <!-- Left links -->
-  
+        <!-- Left links -->        
+        <!-- Search bar -->
+        
+
+        {% if request.user.is_authenticated %}
+
+        <form class="d-flex input-group w-auto me-5 pe-5 " method="POST" action="{% url 'search_task' %}">
+          {% csrf_token %}
+          <input
+            type="search"
+            class="form-control rounded bg-transparent text-light"
+            placeholder="Search"
+            name="search_data"
+            aria-describedby="search-addon"
+          />
+          <!-- <span class="input-group-text border-0 text-light me-5 pe-5" id="search-addon" type="submit"> -->
+            <button class="btn bg-primary" type="submit"><i class="fas fa-search"></i></button>
+          <!-- </span> -->
+        </form>
+
+
+
+
         <div class="d-flex align-items-center">
           <button type="button" class="btn btn-link px-3 me-2">
-            Login
+           Welcome! {{request.user}}
           </button>
+          <a href="{% url 'logout' %}"><button type="button" class="btn btn-link px-3 me-2">
+            Logout
+          </button></a>
+        {% else %}
+          
+        <a href="{% url 'signin' %}"><button type="button" class="btn btn-link px-3 me-2">
+          Login
+        </button></a>
+         <a href="{% url 'signup' %}"><button type="button" class="btn btn-link px-3 me-2">
+           Register
+         </button></a>
           <!-- <button type="button" class="btn btn-primary me-3">
             Sign up for free
           </button> -->
@@ -82,6 +110,7 @@ rel="stylesheet"
             ><i class="fab fa-github"></i
           ></a> -->
         </div>
+        {% endif %}
       </div>
       <!-- Collapsible wrapper -->
     </div>
@@ -89,6 +118,32 @@ rel="stylesheet"
   </nav>
   <!-- Navbar -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   {% block start %}
 
   {% endblock %}
